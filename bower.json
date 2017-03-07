@@ -1,0 +1,25 @@
+{
+  "name": "mp",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/codetyphon/mp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "vue-resource": "^1.2.0",
+    "jquery": "^3.1.1",
+    "vue": "^2.2.1",
+    "less": "^2.7.2",
+    "bootstrap-wysiwyg": "*",
+    "font-awesome": "^4.7.0",
+    "vue-html-editor": "^0.2.1",
+    "jodit": "^2.5.62"
+  }
+}

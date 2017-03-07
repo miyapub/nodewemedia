@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  a(href="/post") 投稿
+  ul.list-group(id="contents")
+    li.list-group-item(v-for="content in contents")
+      a(v-bind:href="'/'+content._id") {{ content.title }}
+  script(src='/javascripts/contents.js')

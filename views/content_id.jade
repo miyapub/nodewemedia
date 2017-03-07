@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  div#content
+    div#content_id(content_id=content_id)
+    h2 {{ content.title }}
+    a(href="mp/edit/"+content_id) edit
+    div
+      write by {{ content.author }}
+    div#area(v-html="content.content")
+  script(src='/javascripts/content.js')

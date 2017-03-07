@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet/less",type="text/css",href="/stylesheets/style.less")
+    link(rel='stylesheet', href='/libs/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/libs/font-awesome/css/font-awesome.min.css')
+    script(src='/libs/jquery/dist/jquery.min.js')
+    script(src='/libs/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/libs/vue/dist/vue.min.js')
+    script(src='/libs/vue-resource/dist/vue-resource.min.js')
+    script(src='/libs/less/dist/less.min.js')
+  body
+    block content
+    div#footer
+      {{ footer }}
+  script(src='/javascripts/footer.js')

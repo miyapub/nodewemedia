@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    //link(rel='stylesheet', href='/libs/bootstrap-wysiwyg/index.css')
+    //link(rel='stylesheet', href='/libs/jodit/jodit.min.css')
+    h1= title
+    #post
+        input(v-model="content.title")
+        div.btn-toolbar(data-role="editor-toolbar",data-target="#editor")
+            a(data-edit="bold")
+            a.btn.btn-large(data-edit="bold")
+              i.icon-bold
+        textarea#editor(contenteditable="true",v-model="content.content")
+        p {{ content.content }}
+        button(@click="onclick") post
+    //script(src='/libs/bootstrap-wysiwyg/bootstrap-wysiwyg.js')
+    //script(src='/libs/vue-html-editor/dist/vue-html-editor.min.js')
+    script(src='/ckeditor/ckeditor.js')
+    //script(src='/ckeditor/samples/js/sample.js')
+    //script(src='/libs/jodit/jodit.min.js')
+    script(src='/javascripts/post.js')

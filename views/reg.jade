@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  #reg
+    input(v-model="user.username")
+    input(type="password",v-model="user.userpass")
+    button(@click="onclick") reg
+  script(src='/javascripts/reg.js')
