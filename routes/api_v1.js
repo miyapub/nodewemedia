@@ -63,9 +63,15 @@ router.put('/set/:user_id', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
     var userpass = req.body.userpass;
-
-    res.json({
-        state: userpass
+    
+    CRUD.Read('users', {
+        username:username
+    }).then(function(json) {
+        if(json[0].userpass===userpass){
+            res.json({state:1});
+        }else{
+            res.json({state:0});
+        }
     });
 });
 router.post('/post', function(req, res, next) {

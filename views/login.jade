@@ -3,6 +3,7 @@ extends layout
 block content
   h1= title
   #login
+    {{ loginStatus}}
     input(v-model="user.username")
     input(type="password",v-model="user.userpass")
     button(@click="onclick") login
