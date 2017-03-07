@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
@@ -23,22 +24,30 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'node',
+    name: 'wemedia', //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+    cookie: {
+        maxAge: 80000
+    }, //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+    resave: false,
+    saveUninitialized: true,
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/libs', express.static('bower_components'));
 app.use('/api/v1', api_v1);
 app.use('/mp', mp);
 app.use('/', index);
 
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

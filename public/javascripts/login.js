@@ -19,6 +19,7 @@ var login_vm = new Vue({
                     if (json.state === 1) {
                         //login success
                         login_vm.loginStatus = '登录成功';
+                        window.location.href = '/post';
                     }
                     if (json.state === 0) {
                         login_vm.loginStatus = '登录失败';
