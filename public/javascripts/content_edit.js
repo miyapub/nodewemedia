@@ -1,4 +1,3 @@
-var content = [];
 var content_edit_vm = new Vue({
     el: '#content_edit',
     data: {

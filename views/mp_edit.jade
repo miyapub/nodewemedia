@@ -11,6 +11,8 @@ block content
         a.btn.btn-large(data-edit="bold")
           i.icon-bold
     input#editor(contenteditable="true",v-model="content.content")
+    input(v-model="content.select_a_title")
+    input(v-model="content.select_b_title")
     button(@click="onclick") {{btn.update}}
     //script(src='/libs/bootstrap-wysiwyg/bootstrap-wysiwyg.js')
     script(src='/ckeditor/ckeditor.js')

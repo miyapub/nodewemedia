@@ -6,6 +6,7 @@ var content = require('../api/v1/content');
 var Promise = require('bluebird');
 var ObjectId = require('mongodb').ObjectId;
 var CRUD = require('../libs/curd');
+var authorize = require('../middleware/authorize_api');
 /* api */
 router.get('/', function (req, res, next) {
     res.json({
@@ -29,17 +30,73 @@ router.get('/content/:content_id', function (req, res, next) {
     CRUD.Read('contents', {
         '_id': ObjectId(content_id)
     }).then(function (json) {
-        res.json(json[0]);
+        var content = json[0];
+        var view_count = 0;
+        if (content.hasOwnProperty('view_count')) {
+            view_count = content.view_count + 1;
+        }
+        if (view_count === null) {
+            view_count = 0;
+        }
+        //更新阅读数量
+        CRUD.Update('contents', {
+            '_id': ObjectId(content_id)
+        }, {
+            view_count: view_count
+        }).then(function (json) {
+
+        });
+        //
+        res.json(content);
     });
 });
-
-router.put('/post', function (req, res, next) {
+router.get('/select_a/:content_id', function (req, res, next) {
+    var content_id = req.params.content_id;
+    CRUD.Read('contents', {
+        '_id': ObjectId(content_id)
+    }).then(function (json) {
+        var content = json[0];
+        var select_a_vote_count = content.select_a_vote_count + 1;
+        //更新select_a_vote_count
+        CRUD.Update('contents', {
+            '_id': ObjectId(content_id)
+        }, {
+            select_a_vote_count: select_a_vote_count
+        }).then(function (json) {
+            res.json(json);
+        });
+        //
+    });
+});
+router.get('/select_b/:content_id', function (req, res, next) {
+    var content_id = req.params.content_id;
+    CRUD.Read('contents', {
+        '_id': ObjectId(content_id)
+    }).then(function (json) {
+        var content = json[0];
+        var select_b_vote_count = content.select_b_vote_count + 1;
+        //更新select_a_vote_count
+        CRUD.Update('contents', {
+            '_id': ObjectId(content_id)
+        }, {
+            select_b_vote_count: select_b_vote_count
+        }).then(function (json) {
+            res.json(json);
+        });
+        //
+    });
+});
+router.put('/post', authorize, function (req, res, next) {
     var title = req.body.title;
     var content = req.body.content;
     var content_id = req.body._id;
+    var select_a_title = req.body.select_a_title;
+    var select_b_title = req.body.select_b_title;
     var setObj = {
         title: title,
-        content: content
+        content: content,
+        select_a_title: select_a_title,
+        select_b_title: select_b_title
     }
     CRUD.Update('contents', {
         '_id': ObjectId(content_id)
@@ -48,7 +105,7 @@ router.put('/post', function (req, res, next) {
     });
 });
 
-router.delete('/content/:content_id', function (req, res, next) {
+router.delete('/content/:content_id', authorize, function (req, res, next) {
     var content_id = req.params.content_id;
     res.json({
         id: content_id
@@ -70,6 +127,8 @@ router.post('/login', function (req, res, next) {
         var user = json[0];
         if (user.userpass === userpass) {
             req.session.userid = user._id;
+            req.session.username = user.username;
+            //req.session.user = user;
             res.json({
                 state: 1
             });
@@ -80,12 +139,23 @@ router.post('/login', function (req, res, next) {
         }
     });
 });
-router.post('/post', function (req, res, next) {
+router.post('/post', authorize, function (req, res, next) {
+
+    var author = req.session.username;
     var title = req.body.title;
     var content = req.body.content;
+    var select_a_title = req.body.select_a_title;
+    var select_b_title = req.body.select_b_title;
+
     var objs = [{
+        author: author,
         title: title,
-        content: content
+        content: content,
+        view_count: 0,
+        select_a_title: select_a_title,
+        select_b_title: select_b_title,
+        select_a_vote_count: 0,
+        select_b_vote_count: 0,
     }]
 
     CRUD.Create('contents', objs).then(function (json) {

@@ -1,4 +1,4 @@
 var system={
-  site_name:'极客开源自媒体'
+  site_name:'你的观点'
 }
 module.exports = system;

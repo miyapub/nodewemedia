@@ -4,24 +4,27 @@ var post_vm = new Vue({
         editor: {},
         content: {
             title: '',
-            content: ''
+            content: '',
+            select_a_title: '',
+            select_a_title: ''
         },
         apiUrl: "/api/v1/post/"
     },
     methods: {
-        onclick: function(e) {
+        onclick: function (e) {
             var content = this.editor.getData();
             this.content.content = content;
-
-            this.$http.post(this.apiUrl, this.content).then(function(data) {
+            this.$http.post(this.apiUrl, this.content).then(function (data) {
                 var json = data.body;
+                var id = json.insertedIds[0];
                 console.log(json);
+                window.location.href = "/" + id;
             });
         }
     },
-    created: function() {
+    created: function () {
 
-        setTimeout(function() {
+        setTimeout(function () {
             var editor = CKEDITOR.replace('editor');
             post_vm.editor = editor;
         }, 2000);

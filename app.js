@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
@@ -25,13 +26,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'node',
-    name: 'wemedia', //这里的name值得是cookie的name，默认cookie的name是：connect.sid
-    cookie: {
-        maxAge: 80000
-    }, //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
-    resave: false,
-    saveUninitialized: true,
+    secret:'mp',
+    store: new MongoStore({
+        url: 'mongodb://localhost/mp',
+        ttl: 30 * 24 * 60 * 60 // = 14 days. Default 
+    })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/libs', express.static('bower_components'));

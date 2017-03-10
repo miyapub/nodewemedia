@@ -6,6 +6,14 @@ block content
     h2 {{ content.title }}
     a(href="mp/edit/"+content_id) edit
     div
-      write by {{ content.author }}
+      write by {{ content.author }} {{ content.view_count }}
     div#area(v-html="content.content")
+
+    div {{ content.select_a_title }}
+
+    div.select(@click="select_a") {{ content.select_a_vote_count }}
+
+    div {{ content.select_b_title }}
+
+    div.select(@click="select_b") {{ content.select_b_vote_count }}
   script(src='/javascripts/content.js')
