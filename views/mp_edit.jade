@@ -2,7 +2,7 @@ extends layout
 
 block content
   //link(rel='stylesheet', href='/libs/bootstrap-wysiwyg/index.css')
-  div#content_edit
+  div#content_edit(v-cloak)
     div#content_id(content_id=content_id)
     input(v-model="content.title")
     a(href="/mp/del/"+content_id) del

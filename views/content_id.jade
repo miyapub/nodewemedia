@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div#content
+  div#content(v-cloak)
     div#content_id(content_id=content_id)
     h2 {{ content.title }}
     a(href="mp/edit/"+content_id) edit
