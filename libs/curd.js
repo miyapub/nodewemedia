@@ -5,7 +5,7 @@ var Promise = require('bluebird');
 var conn = function() {
     var fn = function(resolve, reject) {
         // Connection URL
-        var url = 'mongodb://localhost:27017/mp';
+        var url = 'mongodb://localhost:27017/list';
         // Use connect method to connect to the server
         MongoClient.connect(url, function(err, db) {
             assert.equal(null, err);

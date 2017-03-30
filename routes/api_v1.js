@@ -117,28 +117,7 @@ router.get('/set/:user_id', function (req, res, next) {
 router.put('/set/:user_id', function (req, res, next) {
     res.json();
 });
-router.post('/login', function (req, res, next) {
-    var username = req.body.username;
-    var userpass = req.body.userpass;
 
-    CRUD.Read('users', {
-        username: username
-    }).then(function (json) {
-        var user = json[0];
-        if (user.userpass === userpass) {
-            req.session.userid = user._id;
-            req.session.username = user.username;
-            //req.session.user = user;
-            res.json({
-                state: 1
-            });
-        } else {
-            res.json({
-                state: 0
-            });
-        }
-    });
-});
 router.post('/post', authorize, function (req, res, next) {
 
     var author = req.session.username;

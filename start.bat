@@ -1,12 +1,7 @@
 @echo off
-c:
-cd Program Files
-cd MongoDB
-cd Server
-cd 3.4
-cd bin
-start .\mongod.exe --dbpath d:\nodewemedia\db
-d:
-cd nodewemedia
-supervisor bin/www
+@echo off
+cd D:\Program Files\MongoDB\Server\3.4\bin
+start mongod --dbpath d:\github\nodewemedia\db
+cd D:\github\nodewemedia
+start supervisor bin/www
 start http://localhost:3000

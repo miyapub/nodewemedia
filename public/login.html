@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>login</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <script src="/javascripts/lang.js"></script>
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/lib/bootstrap.min.js"></script>
+    <script src="/lib/vue.min.js"></script>
+    <script src="/lib/vue-resource.min.js"></script>
+
+</head>
+
+<body v-cloak>
+    <div class="center">
+        <div id="login" class="reg_pan">
+            <h3>{{ login_pan_title }}</h3>
+
+            <div class="msg">{{ msg }}</div>
+            <div>
+                <input class="username" v-bind:placeholder="username_placeholder" v-model="username">
+                <input class="userpass" v-bind:placeholder="userpass_placeholder" type="password" v-model="userpass">
+                <button class="login_btn" @click="onclick">{{ login }}</button>
+                <a href="reg.html">{{ reg }}</a>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/login.js"></script>
+    <div class="center" id="footer">{{ footer }}</div>
+    <script src="/javascripts/footer.js"></script>
+</body>
+
+
+</html>

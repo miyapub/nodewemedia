@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var api_v1 = require('./routes/api_v1');
 var mp = require('./routes/mp');
 var app = express();
 
@@ -28,14 +27,13 @@ app.use(cookieParser());
 app.use(session({
     secret:'mp',
     store: new MongoStore({
-        url: 'mongodb://localhost/mp',
+        url: 'mongodb://localhost/list',
         ttl: 30 * 24 * 60 * 60 // = 14 days. Default 
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/libs', express.static('bower_components'));
-app.use('/api/v1', api_v1);
-app.use('/mp', mp);
+//app.use('/libs', express.static('bower_components'));
+//app.use('/mp', mp);
 app.use('/', index);
 
 // catch 404 and forward to error handler

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <title>login</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    <script src="/javascripts/lang.js"></script>
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/lib/bootstrap.min.js"></script>
+    <script src="/lib/vue.min.js"></script>
+    <script src="/lib/vue-resource.min.js"></script>
+</head>
+
+<body v-cloak>
+    <div id="nav_bar">
+        <div id="login_status" must-login>
+            <span class="username">{{ label.username }}</span>
+            <span class="logout_btn" @click="logout">{{ label.logout }}</span>
+        </div>
+    </div>
+    <div id="projects">
+        <div class="left_menu">
+            <ul>
+                <li v-for="project in projects" @click="select(project)">
+                    {{ project.title }}
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="project">
+                <ul>
+                    <li v-for="task in select_project.tasks">
+                        {{ task.title }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/projects.js"></script>
+    <script src="/javascripts/login_status.js"></script>
+</body>
+
+</html>

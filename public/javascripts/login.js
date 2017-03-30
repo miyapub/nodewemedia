@@ -1,30 +1,36 @@
 var login_vm = new Vue({
     el: '#login',
     data: {
-        user: {
-            username: '',
-            userpass: ''
-        },
-        loginStatus: '',
-        apiUrl: "/api/v1/login/"
+        username_placeholder: LANG.username_placeholder,
+        userpass_placeholder: LANG.userpass_placeholder,
+        login_pan_title: LANG.login_pan_title,
+        reg: LANG.reg,
+        login: LANG.login,
+        username: '',
+        userpass: '',
+        msg: '^_^',
+        apiUrl: "/api/login/"
     },
     methods: {
         onclick: function (e) {
-            if (this.user.userpass.length === 0) {
-                this.loginStatus = '请输入密码';
+            if (this.userpass.length === 0) {
+                this.msg = LANG.msg_please_input_userpass;
             } else {
-                this.loginStatus = '正在登录，请稍候...';
-                this.$http.post(this.apiUrl, this.user).then(function (data) {
+                this.msg = LANG.msg_logging;
+                this.$http.post(this.apiUrl, {
+                    username: this.username,
+                    userpass: this.userpass
+                }).then(function (data) {
                     var json = data.body;
-                    if (json.state === 1) {
+                    if (json.status === 1) {
                         //login success
-                        login_vm.loginStatus = '登录成功';
-                        window.location.href = '/post';
+                        login_vm.msg = LANG.msg_login_success;
+                        window.location.href = '/index.html';
                     }
-                    if (json.state === 0) {
-                        login_vm.loginStatus = '登录失败';
+                    if (json.status === 0) {
+                        login_vm.msg = LANG.msg_login_failed;
                     }
-                    console.log(json.state);
+                    console.log(json.status);
                     //this.content = json;
                 });
             }
@@ -40,4 +46,15 @@ var login_vm = new Vue({
             this.content = json;
         });*/
     }
+});
+login_vm.$watch('username', function (newValue, oldValue) {
+
+    console.log('inner:', newValue) // 后只输出一次 "inner" 5
+
+});
+
+login_vm.$watch('userpass', function (newValue, oldValue) {
+
+    console.log('inner:', newValue) // 后只输出一次 "inner" 5
+
 });

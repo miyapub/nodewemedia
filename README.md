@@ -14,6 +14,13 @@
 1) npm
 2) bower
 
+特点：采用了前后端完全分离的方式
+
+不使用前端路由，而且要生成静态页面。
+
+提供node和PHP两种版本的API
+
+数据库可以使用 mongodb、mysql等。
 
 1.RESTful架构 uri里写了版本号，没有完全遵守RESTful。我的理念是，RESTful很好，但为了方便，可以适当做一些不遵守的行为。 这就是85度RESTful，我只遵循85%。
 
