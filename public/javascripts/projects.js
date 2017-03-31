@@ -18,6 +18,7 @@ var projects_vm = new Vue({
         //显示project的设置界面
         show_select_project_setting: function () {
             this.show_setting_project = 'block';
+            setting_project_vm.project = JSON.parse(JSON.stringify(projects_vm.select_project));
         },
         //隐藏project的设置界面
         hide_select_project_setting: function () {
@@ -142,3 +143,32 @@ projects_vm.$watch('add_task_title', function (newValue, oldValue) {
         projects_vm.show_add_task = 'none';
     }
 })
+
+
+
+
+var setting_project_vm = new Vue({
+    el: '#setting_project',
+    data: {
+        project: {}
+    },
+    methods: {
+        //显示project的设置界面
+        close: function () {
+
+        },
+        //隐藏project的设置界面
+        save: function () {
+            console.log(this.project);
+            projects_vm.select_project = setting_project_vm.project;
+            projects_vm.update_select_project();
+        },
+        del: function () {
+            projects_vm.select_project = setting_project_vm.project;
+            projects_vm.del_select_project();
+        }
+    },
+    created: function () {
+
+    }
+});
