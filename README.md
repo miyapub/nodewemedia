@@ -47,3 +47,5 @@ fabricjs
 
 模板编辑：
 https://github.com/artf/grapesjs
+
+知识点：this.$http.delete(url, {body: data})

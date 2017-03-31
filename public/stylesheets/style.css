@@ -171,3 +171,8 @@ button {
     background-color: #db4c3f;
     color: white !important;
 }
+
+.update_project_btn {
+    background-color: #0aaa2b;
+    color: white !important;
+}
