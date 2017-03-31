@@ -5,23 +5,23 @@ var projects_vm = new Vue({
         add_project_title: '',
         add_task_title: '',
         select_project: {},
-        show_add_project_title:'block',
-        show_add_project_body:'none',
-        add_task_placeholder:'任务名称',
-        add_project_placeholder:"列表名称",
+        show_add_project_title: 'block',
+        show_add_project_body: 'none',
+        add_task_placeholder: '任务名称',
+        add_project_placeholder: "列表名称",
         apiUrl_projects: "/api/user/projects",
         apiUrl_project: "/api/user/project"
     },
     methods: {
         //显示添加project
-        show_add_project:function(){
-            projects_vm.show_add_project_title='none';
-            projects_vm.show_add_project_body='block';
+        show_add_project: function () {
+            projects_vm.show_add_project_title = 'none';
+            projects_vm.show_add_project_body = 'block';
         },
         //
-        hide_add_project:function(){
-            projects_vm.show_add_project_title='block';
-            projects_vm.show_add_project_body='none';
+        hide_add_project: function () {
+            projects_vm.show_add_project_title = 'block';
+            projects_vm.show_add_project_body = 'none';
         },
         logout: function () {
             this.$http.get(this.apiUrl_logout + "?" + Math.random()).then(function (data) {
@@ -48,7 +48,7 @@ var projects_vm = new Vue({
                     //加入到 projects 里
                     projects_vm.projects.push(json.added_project);
                     //默认选中新添加的项目
-                    projects_vm.select_project=json.added_project;
+                    projects_vm.select_project = json.added_project;
                     //添加标题清空
                     projects_vm.add_project_title = "";
                     //隐藏添加框
@@ -60,22 +60,50 @@ var projects_vm = new Vue({
                 console.log(json.status);
             });
         },
+        //更新选择的项目
+        update_select_project: function () {
+            this.$http.put(this.apiUrl_project, {
+                project: projects_vm.select_project
+            }).then(function (data) {
+                var json = data.body;
+                console.log(json);
+            });
+        },
         //添加一个任务
         add_task: function () {
             //console.log(projects_vm.add_task_title);
             var new_task = {
                 title: projects_vm.add_task_title,
-                status:"Incomplete"
+                status: "Incomplete"
             }
             projects_vm.select_project.tasks.push(new_task);
             projects_vm.add_task_title = '';
-            this.$http.put(this.apiUrl_project, {
-                project: projects_vm.select_project
+            //更新选择的项目
+            projects_vm.update_select_project();
+        },
+        //删除所选的项目
+        del_select_project: function () {
+            console.log('del project:', this.select_project);
+            var project_id = projects_vm.select_project._id;
+            this.$http.delete(this.apiUrl_project, {
+                project_id: project_id
             }).then(function (data) {
                 var json = data.body;
-
                 console.log(json);
+                //删除
+                projects_vm.projects.map(function (p, index, arr) {
+                    if (p._id === project_id) {
+                        arr.splice(index, 1);
+                    }
+                });
+                if (projects_vm.projects.length > 0) {
+                    projects_vm.select_project = projects_vm.projects[0];
+                }
             });
+        },
+        //删除一个任务
+        del_task: function (task) {
+            console.log('del task:', task);
         }
     },
     created: function () {

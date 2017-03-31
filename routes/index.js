@@ -57,15 +57,15 @@ router.post('/api/reg', function (req, res, next) {
                     default_project = [{
                             title: "Personal",
                             username: username,
-                            status_list:['Incomplete','Completed'],
-                            is_public:false,//默认不是公开的
+                            status_list: ['Incomplete', 'Completed'],
+                            is_public: false, //默认不是公开的
                             tasks: [{
                                     title: "task 1",
-                                    status:"Incomplete"
+                                    status: "Incomplete"
                                 },
                                 {
                                     title: "task 2",
-                                    status:"Incomplete"
+                                    status: "Incomplete"
                                 }
                             ]
                         },
@@ -74,11 +74,11 @@ router.post('/api/reg', function (req, res, next) {
                             username: username,
                             tasks: [{
                                     title: "buy 1",
-                                    status:"Incomplete"
+                                    status: "Incomplete"
                                 },
                                 {
                                     title: "buy 2",
-                                    status:"Incomplete"
+                                    status: "Incomplete"
                                 }
                             ]
                         },
@@ -87,11 +87,11 @@ router.post('/api/reg', function (req, res, next) {
                             username: username,
                             tasks: [{
                                     title: "todo 1",
-                                    status:"Incomplete"
+                                    status: "Incomplete"
                                 },
                                 {
                                     title: "todo 2",
-                                    status:"Incomplete"
+                                    status: "Incomplete"
                                 }
                             ]
                         }
@@ -163,10 +163,10 @@ router.get('/api/user/projects', authorize, function (req, res, next) {
 
 //获取 被用户定位为可以公开的 project
 router.get('/api/project/:project_id', function (req, res, next) {
-    var id=req.params.project_id;
+    var id = req.params.project_id;
     CRUD.Read("projects", {
         '_id': ObjectId(id),
-        is_public:true
+        is_public: true
     }).then(function (json) {
         res.json({
             status: 1,
@@ -182,8 +182,8 @@ router.post('/api/user/project', authorize, function (req, res, next) {
     var new_project = {
         title: add_project_title,
         username: username,
-        status_list:['Incomplete','Completed'],
-        is_public:false,//默认不是公开的
+        status_list: ['Incomplete', 'Completed'],
+        is_public: false, //默认不是公开的
         tasks: []
     }
     CRUD.Create('projects', [new_project]).then(function (json) {
@@ -199,7 +199,7 @@ router.post('/api/user/project', authorize, function (req, res, next) {
 router.put('/api/user/project', authorize, function (req, res, next) {
     var username = req.session.username;
     var project = req.body.project;
-    var id=project._id;
+    var id = project._id;
     delete project._id;
     CRUD.Update("projects", {
         '_id': ObjectId(id)
@@ -212,6 +212,20 @@ router.put('/api/user/project', authorize, function (req, res, next) {
     });
 });
 
+//删除 project 
+router.delete('/api/user/project', authorize, function (req, res, next) {
+    var username = req.session.username;
+    var project_id = req.body.project_id;
+
+    CRUD.Delete('project', {
+        '_id': ObjectId(project_id)
+    }).then(function (json) {
+        res.json({
+            status: 1,
+            json:json
+        });
+    });
+});
 
 
 //退出
