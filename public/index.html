@@ -46,13 +46,6 @@
 
                 <h3>{{ select_project.title }}</h3>
                 <button @click="show_select_project_setting" data-toggle="modal" data-target="#setting_project">设置</button>
-                <div class="setting_project" v-bind:style='{display:show_setting_project}'>
-                    <input type="text" v-model="select_project.title">
-                    <input type="checkbox">
-                    <button class="update_project_btn" @click="update_select_project">更新</button>
-                    <button class="hide_project_btn" @click="hide_select_project_setting">取消</button>
-                    <button class="delete_project_btn" @click="del_select_project">删除此列表</button>
-                </div>
                 <ul>
                     <li>
                         <div>
@@ -87,17 +80,16 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
                     <span aria-hidden="true" @click="close">×</span>  
                 </button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">设置</h4>
                 </div>
                 <div class="modal-body">
                     <input type="text" v-model="project.title">
                     <input type="checkbox">
-                    
+                    <button type="button" class="btn btn-primary" @click="del" data-dismiss="modal">删除此列表</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" @click="close" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" @click="save" data-dismiss="modal">Save</button>
-                    <button type="button" class="btn btn-primary" @click="del" data-dismiss="modal">删除此列表</button>
                 </div>
             </div>
         </div>
