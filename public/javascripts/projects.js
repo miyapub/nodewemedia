@@ -86,7 +86,9 @@ var projects_vm = new Vue({
             console.log('del project:', this.select_project);
             var project_id = projects_vm.select_project._id;
             this.$http.delete(this.apiUrl_project, {
-                project_id: project_id
+                body: {
+                    project_id: project_id
+                }
             }).then(function (data) {
                 var json = data.body;
                 console.log(json);

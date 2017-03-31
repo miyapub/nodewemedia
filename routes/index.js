@@ -216,13 +216,14 @@ router.put('/api/user/project', authorize, function (req, res, next) {
 router.delete('/api/user/project', authorize, function (req, res, next) {
     var username = req.session.username;
     var project_id = req.body.project_id;
-
-    CRUD.Delete('project', {
+    console.log('project_id', project_id);
+    CRUD.Delete('projects', {
         '_id': ObjectId(project_id)
     }).then(function (json) {
         res.json({
             status: 1,
-            json:json
+            json: json,
+            project_id: project_id
         });
     });
 });

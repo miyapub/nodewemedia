@@ -118,7 +118,7 @@ ul {
 }
 
 li {
-    padding: 0;
+    padding: 10px;
 }
 
 li:hover {
@@ -138,35 +138,13 @@ li:hover {
 
 .add_project_btn,
 .add_task_btn {
-    margin-top: 5px;
-    margin-right: 5px;
-    background: 0;
     background-color: #db4c3f;
     color: white !important;
-    border: 1px solid transparent;
-    font-size: 12px !important;
-    line-height: 17px;
-    text-decoration: none;
-    padding: 6px 12px 7px 12px;
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
 }
 
 .hide_project_btn {
-    margin-top: 5px;
-    margin-right: 5px;
-    background: 0;
     background-color: #ccc;
     color: white !important;
-    border: 1px solid transparent;
-    font-size: 12px !important;
-    line-height: 17px;
-    text-decoration: none;
-    padding: 6px 12px 7px 12px;
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
 }
 
 .show-add-project {
@@ -175,4 +153,21 @@ li:hover {
 
 button {
     border-radius: 2px;
+    margin-top: 5px;
+    margin-right: 5px;
+    background: 0;
+    border: 1px solid transparent;
+    font-size: 12px !important;
+    line-height: 17px;
+    text-decoration: none;
+    padding: 6px 12px 7px 12px;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.delete_project_btn {
+    background-color: #db4c3f;
+    color: white !important;
 }

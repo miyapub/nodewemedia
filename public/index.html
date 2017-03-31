@@ -52,7 +52,7 @@
                 </div>
                 <h3>{{ select_project.title }}</h3>
                 <div class="set_project">
-                    <button @click="del_select_project">删除此列表</button>
+                    <button class="delete_project_btn" @click="del_select_project">删除此列表</button>
                 </div>
                 <ul>
                     <li v-for="task in select_project.tasks">
