@@ -142,23 +142,53 @@ router.get('/api/login_status', function (req, res, next) {
     }
 });
 //获取 projects
-router.get('/api/user/projects', function (req, res, next) {
-    if (req.session.hasOwnProperty('userid')) {
-        CRUD.Read("projects", {
-            username: req.session.username
-        }).then(function (json) {
-            res.json({
-                status: 1,
-                projects:json
-            });
-        });
-
-    } else {
+router.get('/api/user/projects', authorize, function (req, res, next) {
+    CRUD.Read("projects", {
+        username: req.session.username
+    }).then(function (json) {
         res.json({
-            status: 0
+            status: 1,
+            projects: json
         });
-    }
+    });
 });
+
+//添加 project 
+router.post('/api/user/project', authorize, function (req, res, next) {
+    var username = req.session.username;
+    var add_project_title = req.body.add_project_title;
+    var new_project = {
+        title: add_project_title,
+        username: username,
+        tasks: []
+    }
+    CRUD.Create('projects', [new_project]).then(function (json) {
+        res.json({
+            status: 1,
+            msg: "",
+            added_project: new_project
+        });
+    });
+});
+
+//更改 project 
+router.put('/api/user/project', authorize, function (req, res, next) {
+    var username = req.session.username;
+    var project = req.body.project;
+    var id=project._id;
+    delete project._id;
+    CRUD.Update("projects", {
+        '_id': ObjectId(id)
+    }, project).then(function (json) {
+        res.json({
+            status: 1,
+            msg: "",
+            update_project: project
+        });
+    });
+});
+
+
 
 //退出
 router.get('/api/logout', function (req, res, next) {
@@ -167,14 +197,7 @@ router.get('/api/logout', function (req, res, next) {
         status: 1
     });
 });
-//获得用户 清单 列表
-router.get('/api/user/get_list', function (req, res, next) {
 
-});
-//获得用户 清单 具体 
-router.get('/api/user/get_list/:list_id', function (req, res, next) {
-
-});
 
 /* pages */
 

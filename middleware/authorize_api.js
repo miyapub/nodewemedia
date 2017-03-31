@@ -1,7 +1,8 @@
 module.exports = function (req, res, next) {
     if (!req.session.userid) {
         res.json({
-            error: 403
+            status: 0,
+            msg: 403
         });
     } else {
         next();
