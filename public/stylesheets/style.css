@@ -136,7 +136,8 @@ li:hover {
     padding-top: 20px;
 }
 
-.add_project_btn,.add_task_btn {
+.add_project_btn,
+.add_task_btn {
     margin-top: 5px;
     margin-right: 5px;
     background: 0;
@@ -151,6 +152,27 @@ li:hover {
     display: inline-block;
     white-space: nowrap;
 }
-button{
+
+.hide_project_btn {
+    margin-top: 5px;
+    margin-right: 5px;
+    background: 0;
+    background-color: #ccc;
+    color: white !important;
+    border: 1px solid transparent;
+    font-size: 12px !important;
+    line-height: 17px;
+    text-decoration: none;
+    padding: 6px 12px 7px 12px;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.show-add-project {
+    cursor: pointer;
+}
+
+button {
     border-radius: 2px;
 }

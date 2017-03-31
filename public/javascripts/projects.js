@@ -5,10 +5,24 @@ var projects_vm = new Vue({
         add_project_title: '',
         add_task_title: '',
         select_project: {},
+        show_add_project_title:'block',
+        show_add_project_body:'none',
+        add_task_placeholder:'任务名称',
+        add_project_placeholder:"列表名称",
         apiUrl_projects: "/api/user/projects",
         apiUrl_project: "/api/user/project"
     },
     methods: {
+        //显示添加project
+        show_add_project:function(){
+            projects_vm.show_add_project_title='none';
+            projects_vm.show_add_project_body='block';
+        },
+        //
+        hide_add_project:function(){
+            projects_vm.show_add_project_title='block';
+            projects_vm.show_add_project_body='none';
+        },
         logout: function () {
             this.$http.get(this.apiUrl_logout + "?" + Math.random()).then(function (data) {
                 var json = data.body;
@@ -34,9 +48,11 @@ var projects_vm = new Vue({
                     //加入到 projects 里
                     projects_vm.projects.push(json.added_project);
                     //默认选中新添加的项目
-                    projects_vm.select_project=added_project;
+                    projects_vm.select_project=json.added_project;
                     //添加标题清空
                     projects_vm.add_project_title = "";
+                    //隐藏添加框
+                    projects_vm.hide_add_project();
                 }
                 if (json.status === 0) {
 
@@ -48,7 +64,8 @@ var projects_vm = new Vue({
         add_task: function () {
             //console.log(projects_vm.add_task_title);
             var new_task = {
-                title: projects_vm.add_task_title
+                title: projects_vm.add_task_title,
+                status:"Incomplete"
             }
             projects_vm.select_project.tasks.push(new_task);
             projects_vm.add_task_title = '';

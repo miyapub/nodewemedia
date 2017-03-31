@@ -33,15 +33,23 @@
 
             </ul>
             <div>
-                <input type="text" v-model="add_project_title">
-                <button class="add_project_btn" @click="add_project">添加列表</button>
+                <span class="show-add-project" @click='show_add_project' v-bind:style='{display:show_add_project_title}'>添加列表</span>
+                <div v-bind:style='{display:show_add_project_body}'>
+                    <input type="text" v-bind:placeholder="add_project_placeholder" v-model="add_project_title">
+                    <button class="add_project_btn" @click="add_project">添加</button>
+                    <button class="hide_project_btn" @click="hide_add_project">取消</button>
+                </div>
             </div>
         </div>
         <div class="content">
             <div class="project">
                 <div>
-                    <input type="text" v-model="add_task_title">
+                    <input type="text" v-bind:placeholder="add_task_placeholder" v-model="add_task_title">
                     <button class="add_task_btn" @click="add_task">添加任务</button>
+                </div>
+                <h3>{{ select_project.title }}</h3>
+                <div class="set_project">
+                    
                 </div>
                 <ul>
                     <li v-for="task in select_project.tasks">
