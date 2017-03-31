@@ -30,36 +30,53 @@
                 <li v-for="project in projects" @click="select(project)">
                     {{ project.title }} ({{ project.tasks.length }})
                 </li>
-
-            </ul>
-            <div>
-                <div class="show-add-project" @click='show_add_project' v-bind:style='{display:show_add_project_title}'>
-                    <span class="icon-add"></span>
-                    <span>添加列表</span>
+                <li>
+                    <div class="show-add-project" @click='show_add_project' v-bind:style='{display:show_add_project_title}'>
+                        <span class="icon-add"></span>
+                        <span>添加列表</span>
                     </div>
-                <div v-bind:style='{display:show_add_project_body}'>
-                    <input type="text" v-bind:placeholder="add_project_placeholder" v-model="add_project_title">
-                    <button class="add_project_btn" @click="add_project">添加</button>
-                    <button class="hide_project_btn" @click="hide_add_project">取消</button>
-                </div>
-            </div>
+                    <div v-bind:style='{display:show_add_project_body}'>
+                        <input type="text" v-bind:placeholder="add_project_placeholder" v-model="add_project_title">
+                        <button class="add_project_btn" @click="add_project">添加</button>
+                        <button class="hide_project_btn" @click="hide_add_project">取消</button>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class="content">
             <div class="project">
-                <div>
-                    <input type="text" v-bind:placeholder="add_task_placeholder" v-model="add_task_title">
-                    <button class="add_task_btn" @click="add_task">添加任务</button>
-                </div>
+
                 <h3>{{ select_project.title }}</h3>
-                <div class="set_project">
+                <button @click="show_select_project_setting">设置</button>
+                <div class="setting_project" v-bind:style='{display:show_setting_project}'>
                     <input type="text" v-model="select_project.title">
                     <input type="checkbox">
                     <button class="update_project_btn" @click="update_select_project">更新</button>
+                    <button class="hide_project_btn" @click="hide_select_project_setting">取消</button>
                     <button class="delete_project_btn" @click="del_select_project">删除此列表</button>
                 </div>
                 <ul>
+                    <li>
+                        <div>
+                            <input type="text" v-bind:placeholder="add_task_placeholder" v-model="add_task_title">
+                            <button v-bind:style='{display:show_add_task}' class="add_task_btn" @click="add_task">添加任务</button>
+                        </div>
+                    </li>
                     <li v-for="task in select_project.tasks">
-                        {{ task.title }}
+                        <div>
+                            {{ task.title }}
+                        </div>
+                        <div>
+                            <input type="text" v-model="task.title" v-on:blur="update_select_project">
+                            <select v-model="task.status" v-on:change="update_select_project">
+                                <option v-for="option in select_project.status_list" v-bind:value="option">  
+                                    {{ option }}  
+                                </option> 
+                            </select>
+                        </div>
+                        <div>
+
+                        </div>
                     </li>
                 </ul>
             </div>

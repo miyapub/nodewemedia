@@ -7,12 +7,22 @@ var projects_vm = new Vue({
         select_project: {},
         show_add_project_title: 'block',
         show_add_project_body: 'none',
-        add_task_placeholder: '任务名称',
+        show_add_task: 'none',
+        show_setting_project: 'none',
+        add_task_placeholder: '添加任务',
         add_project_placeholder: "列表名称",
         apiUrl_projects: "/api/user/projects",
         apiUrl_project: "/api/user/project"
     },
     methods: {
+        //显示project的设置界面
+        show_select_project_setting: function () {
+            this.show_setting_project = 'block';
+        },
+        //隐藏project的设置界面
+        hide_select_project_setting: function () {
+            this.show_setting_project = 'none';
+        },
         //显示添加project
         show_add_project: function () {
             projects_vm.show_add_project_title = 'none';
@@ -67,6 +77,7 @@ var projects_vm = new Vue({
             }).then(function (data) {
                 var json = data.body;
                 console.log(json);
+                this.show_setting_project = 'none';
             });
         },
         //添加一个任务
@@ -120,3 +131,14 @@ var projects_vm = new Vue({
         });
     }
 });
+
+
+projects_vm.$watch('add_task_title', function (newValue, oldValue) {
+    //如果输入 新任务，出现添加任务按钮。
+    console.log('inner:', newValue) // 后只输出一次 "inner" 5
+    if (newValue.length > 1) {
+        projects_vm.show_add_task = 'block';
+    } else {
+        projects_vm.show_add_task = 'none';
+    }
+})
