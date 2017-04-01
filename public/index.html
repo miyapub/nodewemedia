@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
-    <script src="/javascripts/lang.js"></script>
-    <script src="/lib/jquery.min.js"></script>
-    <script src="/lib/bootstrap.min.js"></script>
+
+
 </head>
 
 <body v-cloak>
@@ -47,29 +46,37 @@
                 <h3>{{ select_project.title }}</h3>
                 <button @click="show_select_project_setting" data-toggle="modal" data-target="#setting_project">设置</button>
                 <ul>
-                    <li>
-                        <div>
-                            <input type="text" v-bind:placeholder="add_task_placeholder" v-model="add_task_title">
-                            <button v-bind:style='{display:show_add_task}' class="add_task_btn" @click="add_task">添加任务</button>
-                        </div>
+                    <div>
+                        <input type="text" v-bind:placeholder="add_task_placeholder" v-model="add_task_title">
+                        <button v-bind:style='{display:show_add_task}' class="add_task_btn" @click="add_task">添加任务</button>
+                    </div>
+                </ul>
+                <ul class="nav nav-tabs">
+                    <li v-for="status in select_project.status_list">
+                        <a href="" data-toggle="tab">{{ status }}</a>
                     </li>
-                    <li v-for="task in select_project.tasks">
-                        <div>
-                            {{ task.title }}
-                        </div>
-                        <div>
-                            <input type="text" v-model="task.title" v-on:blur="update_select_project">
-                            <select v-model="task.status" v-on:change="update_select_project">
+                </ul>
+
+                <ul>
+                    <div v-for="status in select_project.status_list">
+                        {{ status }}
+                        <li v-if="task.status===status" v-for="task in select_project.tasks">
+                            <div>
+                                {{ task.title }}
+                            </div>
+                            <div>
+                                <input type="text" v-model="task.title" v-on:blur="update_select_project">
+                                <select v-model="task.status" v-on:change="update_select_project">
                                 <option v-for="option in select_project.status_list" v-bind:value="option">  
                                     {{ option }}  
                                 </option> 
                             </select>
-                        </div>
-                        <div>
-
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+                    </div>
                 </ul>
+
+
             </div>
         </div>
     </div>
@@ -85,15 +92,18 @@
                 <div class="modal-body">
                     <input type="text" v-model="project.title">
                     <input type="checkbox">
-                    <button type="button" class="btn btn-primary" @click="del" data-dismiss="modal">删除此列表</button>
+                    <button type="button" class="btn btn-danger" @click="del" data-dismiss="modal">删除此列表</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" @click="close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="save" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-success" @click="save" data-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/javascripts/lang.js"></script>
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/lib/bootstrap.min.js"></script>
     <script src="/lib/vue.min.js"></script>
     <script src="/lib/vue-resource.min.js"></script>
     <script src="/javascripts/projects.js"></script>
