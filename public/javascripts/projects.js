@@ -160,7 +160,7 @@ var setting_project_vm = new Vue({
         //隐藏project的设置界面
         save: function () {
             console.log(this.project);
-            projects_vm.select_project = setting_project_vm.project;
+            projects_vm.select_project.title = setting_project_vm.project.title;
             projects_vm.update_select_project();
         },
         del: function () {
